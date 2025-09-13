@@ -1,32 +1,57 @@
-# heart-disease-ecg-prediction
-Deep learning model (1D-CNN + BiLSTM) for ECG signal classification (Normal, MI, ST/T Change) using PTB-XL dataset.
-
 # Heart Disease Prediction from ECG Signals
 
-This project develops a deep learning model (1D-CNN + BiLSTM) to classify ECG signals into:
-- Normal (NORM)
-- Myocardial Infarction (MI)
-- ST/T Change (STTC)
+This project develops a deep learning system to predict heart disease from **12-lead ECG signals** using the **PTB-XL dataset**.  
+The system classifies ECG signals into three categories:
+- **Normal (NORM)**
+- **Myocardial Infarction (MI)**
+- **ST/T Change (STTC)**
+
 
 ## Dataset
-- PTB-XL ECG dataset from PhysioNet
-- 18,512 records (12-lead, 10s, 100Hz)
+- Source: [PTB-XL ECG dataset (PhysioNet)](https://physionet.org/content/ptb-xl/1.0.1/)
+- Total records: **21,799**
+- Records used in this research: **18,512**
+  - NORM: 9,399  
+  - MI: 4,821  
+  - STTC: 4,292  
+- Each record: **12-lead, 10 seconds, 100Hz**
+
 
 ## Model
-- Input: ECG signals (1000x12)
-- Architecture: 1D CNN + BiLSTM
-- Training: k-fold cross validation
+- Input: ECG signals `(1000 x 12)`
+- Architecture: **1D CNN + BiLSTM**
+- Training: **Stratified k-Fold Cross Validation**
+- Metrics: Accuracy, Precision, Recall, F1-Score
+
 
 ## Results
-- Accuracy: 86.9%
-- F1-score:
-  - NORM: 88.2%
-  - MI: 87.0%
-  - STTC: 85.6%
+- **Best Fold Performance (Fold-3)**:
+  - Accuracy: **86.97%**
+  - Precision: **86.90%**
+  - Recall: **87.00%**
+  - F1-Score (macro): **86.92%**
+- Per class F1-score:
+  - NORM: **88.2%**
+  - MI: **87.0%**
+  - STTC: **85.6%**
 
-## Deployment
-- Web app built with Streamlit
-- Tested with SUS score of 77.25%
 
-## File
-- `Model CNN Penelitian Ilmiah.ipynb` → main notebook with model training and evaluation
+## Implementation
+### 🔹 Notebook (Training & Evaluation)
+- File: [`notebooks/Model CNN Penelitian Ilmiah.ipynb`](notebooks/Model%20CNN%20Penelitian%20Ilmiah.ipynb)  
+- Contains: preprocessing, model training, evaluation, and results visualization.
+
+### 🔹 Web App (Deployment)
+- File: [`app/app.py`](app/app.py)  
+- Built with **Streamlit**  
+- Allows users to upload ECG signals and get predictions (Normal, MI, or STTC).
+
+
+## 🚀 Deployment
+### Option 1: Run locally
+```bash
+# install dependencies
+pip install -r requirements.txt
+
+# run app
+streamlit run app/app.py
